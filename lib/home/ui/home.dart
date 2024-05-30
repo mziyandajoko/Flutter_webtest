@@ -28,10 +28,24 @@ class HomePage extends StatelessWidget {
                         labelText:
                             'Connecting \nWe charge \nas little as possible \nNo subscription',
                       ),
+                      const SizedBox(
+                        height: 50,
+                      ),
                       Row(
                         children: [
-                          CustomButton(label: 'btn1', onPressed: () {}),
-                          CustomButton(label: 'btn2', onPressed: () {}),
+                          CustomButton(
+                            label: 'App Store',
+                            onPressed: () {},
+                            icon: Icons.apple,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomButton(
+                            label: 'google play',
+                            onPressed: () {},
+                            icon: Icons.play_arrow,
+                          ),
                         ],
                       )
                     ],
