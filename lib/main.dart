@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_test/home/ui/home.dart';
+import 'package:web_test/product/productList/product_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomePage();
+    return const ProductList();
   }
 }

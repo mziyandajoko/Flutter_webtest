@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_test/Widget/Button/Custom_button.dart';
+import 'package:web_test/product/productList/product_list.dart';
 
 import '../Widget/custom_text/heading_text.dart';
 
@@ -37,7 +38,14 @@ class Mobilebody extends StatelessWidget {
                       children: [
                         CustomButton(
                           label: 'App Store',
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductList(),
+                              ),
+                            );
+                          },
                           icon: Icons.apple,
                         ),
                         const SizedBox(
