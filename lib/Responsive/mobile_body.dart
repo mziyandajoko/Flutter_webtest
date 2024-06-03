@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_test/Widget/Button/Custom_button.dart';
-import 'package:web_test/product/productList/product_list.dart';
+import 'package:web_test/users/usersList/user_list.dart';
 
 import '../Widget/custom_text/heading_text.dart';
 
@@ -30,6 +30,7 @@ class Mobilebody extends StatelessWidget {
                     const HeadingText(
                       labelText:
                           'Connecting \nWe charge \nas little as possible \nNo subscription',
+                      fontSize: 35,
                     ),
                     const SizedBox(
                       height: 50,
@@ -42,7 +43,7 @@ class Mobilebody extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ProductList(),
+                                builder: (context) => const UserList(),
                               ),
                             );
                           },

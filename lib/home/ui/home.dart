@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: const Color.fromARGB(87, 35, 35, 35),
         appBar: AppBar(
           title: const Text('Nav should be responsive'),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_test/users/usersList/user_list.dart';
 
 import '../Widget/Button/Custom_button.dart';
 import '../Widget/custom_text/heading_text.dart';
@@ -22,6 +23,7 @@ class DesktopBody extends StatelessWidget {
                   const HeadingText(
                     labelText:
                         'Connecting \nWe charge \nas little as possible \nNo subscription',
+                    fontSize: 60,
                   ),
                   const SizedBox(
                     height: 50,
@@ -30,7 +32,14 @@ class DesktopBody extends StatelessWidget {
                     children: [
                       CustomButton(
                         label: 'App Store',
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UserList(),
+                            ),
+                          );
+                        },
                         icon: Icons.apple,
                       ),
                       const SizedBox(
