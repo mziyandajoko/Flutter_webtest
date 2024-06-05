@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import '../../data/user_model.dart';
+import 'package:web_test/data/user_model.dart';
+import 'dart:convert';
 
 class UserList extends StatefulWidget {
   const UserList({super.key});
@@ -13,21 +11,24 @@ class UserList extends StatefulWidget {
 }
 
 class _UserListState extends State<UserList> {
-  getuserData() async {
-    var response = await http.get(
+  Future<List<UserModel>> _getuserData() async {
+    var res = await http.get(
       Uri.https('jsonplaceholder.typicode.com', 'users'),
     );
-    var jasonData = jsonDecode(response.body);
-    //store jasonData into List
+
+    var jsonData = json.decode(res.body);
 
     List<UserModel> users = [];
 
-    for (var u in jasonData) {
-      UserModel user = UserModel(u['name'], u['email'], u['username'], u['id']);
-
+    for (var u in jsonData) {
+      UserModel user = UserModel(
+          username: u['username'],
+          id: u['id'],
+          name: u['name'],
+          email: u['email']);
       users.add(user);
-      return users;
     }
+    return users;
   }
 
   @override
@@ -37,27 +38,18 @@ class _UserListState extends State<UserList> {
         appBar: AppBar(
           title: const Text('user List'),
         ),
-        body: Card(
-          child: FutureBuilder(
-              future: getuserData(),
-              builder: (context, snapshot) {
-                if (snapshot.data == null) {
-                  return const SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Text('loading data'),
+        body: FutureBuilder(
+            future: _getuserData(),
+            builder: (context, snapshot) {
+              return ListView.builder(
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(snapshot.data[index].name),
                   );
-                } else {
-                  return ListView.builder(
-                    itemBuilder: (context, index) {
-                      return const ListTile(
-                        title: Text('test'),
-                      );
-                    },
-                  );
-                }
-              }),
-        ),
+                },
+              );
+            }),
       ),
     );
   }
