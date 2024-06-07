@@ -19,11 +19,10 @@ class _UserListState extends State<UserList> {
     var jsonData = json.decode(res.body);
 
     List<UserModel> users = [];
-
     for (var u in jsonData) {
       UserModel user = UserModel(
           username: u['username'],
-          id: u['id'],
+          id: u['id'].toString(),
           name: u['name'],
           email: u['email']);
       users.add(user);
@@ -36,20 +35,32 @@ class _UserListState extends State<UserList> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('user List'),
+          title: const Text('User List'),
         ),
-        body: FutureBuilder(
-            future: _getuserData(),
-            builder: (context, snapshot) {
-              return ListView.builder(
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(snapshot.data[index].name),
-                  );
-                },
-              );
-            }),
+        body: FutureBuilder<List<UserModel>>(
+          future: _getuserData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('No data found'));
+            }
+
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                var user = snapshot.data![index];
+                return ListTile(
+                  title: Text(user.name ?? 'No name'),
+                  subtitle: Text(user.username ?? 'No username'),
+                  trailing: Text(user.id ?? 'No ID'),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
